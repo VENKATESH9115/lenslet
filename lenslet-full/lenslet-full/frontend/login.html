@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/app.css?v=video-blend-3">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>Sign in – Lenslet</title>
+  <meta name="description" content="Sign in to rent cameras, lenses and production gear.">
+</head>
+<body class="auth-page">
+  <main class="auth auth-cinematic">
+    <section class="auth-art" aria-label="Lenslet camera engineering visualization">
+      <div class="auth-art-top">
+        <a class="logo" href="/" aria-label="Lenslet home"><i></i>Lenslet</a>
+        <span class="art-index">FIELD NOTES <b>01</b></span>
+      </div>
+
+      <div class="camera-stage" id="camera-stage">
+        <div class="stage-grid" aria-hidden="true"></div>
+        <div class="stage-meta stage-meta-tl" aria-hidden="true"><span>OPTICAL SYSTEM</span><b>LF / 24.2</b></div>
+        <div class="stage-meta stage-meta-br" aria-hidden="true"><span>EXPLODED VIEW</span><b>01—07—24</b></div>
+        <div class="camera-reference-art camera-video-shell" id="camera-video-shell">
+          <span class="camera-video-loading" aria-hidden="true">LOADING OPTICAL SYSTEM <i></i></span>
+          <video id="camera-video" autoplay loop muted playsinline preload="metadata" aria-label="Camera dismantling animation">
+            <source src="/public/animations/camera-dismantling.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="camera-scene" id="camera-scene" data-state="assembled" data-motion="assembled">
+          <div class="technical-ring camera-layer" data-depth="0.12" aria-hidden="true">
+            <svg viewBox="0 0 620 620" role="presentation">
+              <circle cx="310" cy="310" r="280" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 12"/>
+              <circle cx="310" cy="310" r="244" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="38 8 2 8" opacity=".45"/>
+              <circle cx="310" cy="310" r="193" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 18" opacity=".45"/>
+              <path d="M310 18v24M310 578v24M18 310h24M578 310h24"/>
+              <path d="M104 104l20 20M496 104l-20 20M104 516l20-20M496 516l-20-20" opacity=".65"/>
+            </svg>
+          </div>
+
+          <svg class="connector-lines camera-layer" data-depth="0.2" viewBox="0 0 760 600" aria-hidden="true">
+            <path class="connector connector-one" d="M155 236H42V185H18"/>
+            <path class="connector connector-two" d="M518 174h112v-42h38"/>
+            <path class="connector connector-three" d="M548 390h80v42h38"/>
+            <path class="connector connector-four" d="M385 464v68h-80"/>
+            <circle cx="155" cy="236" r="3"/><circle cx="518" cy="174" r="3"/><circle cx="548" cy="390" r="3"/><circle cx="385" cy="464" r="3"/>
+          </svg>
+
+          <div class="camera-component component-lens-barrel" data-depth="1" style="--delay:.08s;--assembled-x:-104px;--assembled-y:16px;--exploded-x:-186px;--exploded-y:16px" aria-hidden="true">
+            <svg class="component-art" viewBox="0 0 260 290">
+              <defs><linearGradient id="barrel-sheen" x1="0" x2="1"><stop stop-color="#303038"/><stop offset=".45" stop-color="#111116"/><stop offset="1" stop-color="#35333a"/></linearGradient></defs>
+              <ellipse cx="130" cy="145" rx="99" ry="123" fill="url(#barrel-sheen)" stroke="#67616a" stroke-width="2"/>
+              <ellipse cx="130" cy="145" rx="78" ry="101" fill="#0b0d10" stroke="#9a6650" stroke-opacity=".8" stroke-width="2"/>
+              <path d="M51 94c35-30 123-35 157 1M45 173c42 35 118 37 170 0" fill="none" stroke="#b27559" stroke-opacity=".55"/>
+              <g class="barrel-rings" fill="none" stroke="#8a858b" stroke-opacity=".55"><ellipse cx="130" cy="145" rx="92" ry="115"/><ellipse cx="130" cy="145" rx="87" ry="109"/><ellipse cx="130" cy="145" rx="72" ry="94"/></g>
+              <path d="M58 60l16-10M202 60l-16-10M45 145H27M215 145h18M58 230l16-10M202 230l-16-10" stroke="#ffa77a" stroke-width="2"/>
+            </svg>
+            <span class="camera-label label-lens"><b>LENS BARREL</b><small>FE 35 / 1.4 GM</small></span>
+          </div>
+
+          <div class="camera-component component-optics" data-depth=".92" style="--delay:.18s;--assembled-x:-101px;--assembled-y:16px;--exploded-x:-112px;--exploded-y:16px" aria-hidden="true">
+            <svg class="component-art optic-float" viewBox="0 0 230 230">
+              <circle cx="115" cy="115" r="78" fill="#111923" fill-opacity=".8" stroke="#8aa0aa" stroke-opacity=".8" stroke-width="2"/>
+              <circle cx="115" cy="115" r="57" fill="#172b38" stroke="#ffa77a" stroke-opacity=".65"/>
+              <circle cx="115" cy="115" r="38" fill="#071118" stroke="#bbd5d9" stroke-opacity=".7"/>
+              <path d="M67 79c29-20 65-20 96 0M60 153c30 21 70 20 110 0" fill="none" stroke="#c5e9e5" stroke-opacity=".65"/>
+              <circle cx="115" cy="115" r="11" fill="#04070a" stroke="#ffa77a"/>
+            </svg>
+            <span class="camera-label label-optics"><b>LENS ELEMENTS</b><small>PRECISION OPTICS</small></span>
+          </div>
+
+          <div class="camera-component component-mount" data-depth=".82" style="--delay:.12s;--assembled-x:-47px;--assembled-y:16px;--exploded-x:-64px;--exploded-y:16px" aria-hidden="true">
+            <svg class="component-art" viewBox="0 0 150 190">
+              <ellipse cx="75" cy="95" rx="52" ry="79" fill="#25252b" stroke="#918a86" stroke-width="2"/>
+              <ellipse cx="75" cy="95" rx="39" ry="63" fill="none" stroke="#ffa77a" stroke-opacity=".55" stroke-dasharray="4 6"/>
+              <g fill="#b9a28e"><circle cx="75" cy="31" r="3"/><circle cx="112" cy="62" r="3"/><circle cx="105" cy="140" r="3"/><circle cx="40" cy="145" r="3"/><circle cx="36" cy="57" r="3"/></g>
+            </svg>
+            <span class="camera-label label-mount"><b>LENS MOUNT</b><small>ALLOY / LOCK 07</small></span>
+          </div>
+
+          <div class="camera-component component-aperture" data-depth=".84" style="--delay:.16s;--assembled-x:-7px;--assembled-y:16px;--exploded-x:-18px;--exploded-y:16px" aria-hidden="true">
+            <svg class="component-art aperture-rotate" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="49" fill="#16171c" stroke="#a17a68" stroke-width="2"/>
+              <path d="M60 18 79 45 72 72 45 83 26 60 39 34Z" fill="#54606a" fill-opacity=".35" stroke="#c2b3a7"/>
+              <path d="m60 18 29 20-17 27-27 18-19-23 13-26Z" fill="#6f7b82" fill-opacity=".28" stroke="#d8c4b8"/>
+              <circle cx="60" cy="60" r="15" fill="#050709" stroke="#ffa77a"/>
+            </svg>
+            <span class="camera-label label-aperture"><b>APERTURE UNIT</b><small>f/1.4 — f/16</small></span>
+          </div>
+
+          <div class="camera-component component-top" data-depth=".55" style="--delay:.28s;--assembled-x:36px;--assembled-y:-35px;--exploded-x:37px;--exploded-y:-112px" aria-hidden="true">
+            <svg class="component-art top-float" viewBox="0 0 320 150">
+              <path d="M26 105V55l35-27h160l72 32v45H26Z" fill="#2a2930" stroke="#756c6b" stroke-width="2"/>
+              <path d="M61 28l22-16h76l13 16M244 60h22v25h-22" fill="none" stroke="#b37b62" stroke-width="2"/>
+              <circle cx="102" cy="45" r="19" fill="#121318" stroke="#b37b62"/><circle cx="102" cy="45" r="6" fill="#ffa77a"/>
+              <rect x="174" y="34" width="40" height="18" rx="4" fill="#121318" stroke="#918a86"/><path d="M46 106h223" stroke="#ffa77a" stroke-opacity=".55"/>
+            </svg>
+            <span class="camera-label label-top"><b>TOP CONTROLS</b><small>PRECISION DIALS</small></span>
+          </div>
+
+          <div class="camera-component component-body" data-depth=".42" style="--delay:.02s;--assembled-x:34px;--assembled-y:29px;--exploded-x:34px;--exploded-y:29px" aria-hidden="true">
+            <svg class="component-art body-float" viewBox="0 0 390 300">
+              <path d="M34 74 83 42h78l24 24h92l79 43v116l-40 36H42L20 234V111Z" fill="#202126" stroke="#aaa0a0" stroke-width="2"/>
+              <path d="M34 74 83 42h78l24 24H92L45 94v115l22 30h269l-40 36H42L20 234V111Z" fill="#34343a" fill-opacity=".7"/>
+              <path d="M188 66h88l58 34v87H189Z" fill="#11151b" stroke="#5d6870"/>
+              <rect x="211" y="91" width="78" height="55" rx="4" fill="#080a0d" stroke="#879196" stroke-opacity=".75"/>
+              <path d="M216 99h67v40h-67Z" fill="#1e3338" stroke="#ffa77a" stroke-opacity=".7"/>
+              <circle cx="49" cy="118" r="13" fill="#121318" stroke="#bd8268"/><circle cx="49" cy="118" r="4" fill="#ffa77a"/>
+              <path d="M48 166h108M48 180h88M302 196h20" stroke="#6c6b72"/>
+              <path class="rec" d="M316 85v14M309 92h14" stroke="#ffa77a" stroke-width="2"/>
+            </svg>
+            <span class="camera-label label-body"><b>CAMERA BODY</b><small>MAGNESIUM ALLOY</small></span>
+          </div>
+
+          <div class="camera-component component-sidepanel" data-depth=".3" style="--delay:.36s;--assembled-x:163px;--assembled-y:31px;--exploded-x:214px;--exploded-y:31px" aria-hidden="true">
+            <svg class="component-art sidepanel-float" viewBox="0 0 90 210">
+              <path d="M23 12h42l14 18v153l-14 15H23L10 183V30Z" fill="#34343a" stroke="#a09794" stroke-width="2"/>
+              <path d="M26 44h36M26 57h36M26 70h24M26 130h36" stroke="#bd8065" stroke-opacity=".75"/>
+              <circle cx="62" cy="101" r="7" fill="#101216" stroke="#c2a08d"/>
+            </svg>
+            <span class="camera-label label-sidepanel"><b>SIDE PANEL</b><small>IO / USB-C</small></span>
+          </div>
+
+          <div class="camera-component component-rear" data-depth=".32" style="--delay:.34s;--assembled-x:128px;--assembled-y:29px;--exploded-x:175px;--exploded-y:29px" aria-hidden="true">
+            <svg class="component-art rear-float" viewBox="0 0 220 270">
+              <path d="M28 27h150l24 24v164l-27 28H28l-14-28V51Z" fill="#2c2c33" stroke="#847979" stroke-width="2"/>
+              <rect x="45" y="63" width="115" height="79" rx="4" fill="#0e1318" stroke="#b47a60"/>
+              <path d="M55 73h95v59H55Z" fill="#22333a"/><path d="M57 123c25-19 56-17 90-4" fill="none" stroke="#a8d0c9" stroke-opacity=".6"/>
+              <g fill="#a4a0a0"><circle cx="178" cy="61" r="5"/><circle cx="178" cy="85" r="5"/><circle cx="178" cy="109" r="5"/><circle cx="178" cy="183" r="5"/></g>
+              <path d="M51 174h106M51 186h74" stroke="#78767d"/>
+            </svg>
+            <span class="camera-label label-rear"><b>REAR HOUSING</b><small>CONTROL PLANE</small></span>
+          </div>
+
+          <div class="camera-component component-sensor" data-depth=".72" style="--delay:.2s;--assembled-x:78px;--assembled-y:29px;--exploded-x:78px;--exploded-y:82px" aria-hidden="true">
+            <svg class="component-art sensor-pulse" viewBox="0 0 120 150">
+              <rect x="15" y="15" width="90" height="120" rx="5" fill="#1b3033" stroke="#d4b195" stroke-width="2"/>
+              <rect x="26" y="26" width="68" height="98" fill="#73938d" fill-opacity=".48" stroke="#d6eece" stroke-opacity=".75"/>
+              <g fill="#d9e8d1" fill-opacity=".5"><circle cx="39" cy="43" r="2"/><circle cx="53" cy="43" r="2"/><circle cx="67" cy="43" r="2"/><circle cx="81" cy="43" r="2"/><circle cx="39" cy="58" r="2"/><circle cx="53" cy="58" r="2"/><circle cx="67" cy="58" r="2"/><circle cx="81" cy="58" r="2"/><circle cx="39" cy="73" r="2"/><circle cx="53" cy="73" r="2"/><circle cx="67" cy="73" r="2"/><circle cx="81" cy="73" r="2"/></g>
+            </svg>
+            <span class="camera-label label-sensor"><b>IMAGE SENSOR</b><small>24.2 MP FULL FRAME</small></span>
+          </div>
+
+          <div class="camera-component component-processor" data-depth=".48" style="--delay:.4s;--assembled-x:34px;--assembled-y:29px;--exploded-x:34px;--exploded-y:132px" aria-hidden="true">
+            <svg class="component-art processor-drift" viewBox="0 0 160 115">
+              <rect x="28" y="16" width="104" height="82" rx="6" fill="#172326" stroke="#9c7660" stroke-width="2"/>
+              <rect x="53" y="35" width="55" height="44" fill="#bc8b5b" fill-opacity=".35" stroke="#e5c09b"/>
+              <path d="M40 28v-12M58 28v-12M76 28v-12M94 28v-12M112 28v-12M40 98v12M58 98v12M76 98v12M94 98v12M112 98v12M28 36H16M28 53H16M28 70H16M132 36h12M132 53h12M132 70h12" stroke="#cda487" stroke-width="2"/>
+            </svg>
+            <span class="camera-label label-processor"><b>PROCESSING UNIT</b><small>BIONZ XR PROCESSOR</small></span>
+          </div>
+
+          <div class="camera-component component-battery" data-depth=".36" style="--delay:.46s;--assembled-x:130px;--assembled-y:115px;--exploded-x:175px;--exploded-y:142px" aria-hidden="true">
+            <svg class="component-art" viewBox="0 0 108 150">
+              <rect x="15" y="16" width="78" height="118" rx="8" fill="#26272c" stroke="#8d817e" stroke-width="2"/><rect x="28" y="31" width="52" height="76" rx="3" fill="#12161a" stroke="#b67d61"/><path d="M40 48h28M40 59h28M40 70h28M40 81h16" stroke="#7c8a8a"/><path d="M43 16v-7h22v7" stroke="#bd896f" stroke-width="2"/>
+            </svg>
+            <span class="camera-label label-battery"><b>BATTERY BAY</b><small>NP-FZ100 / 2280mAh</small></span>
+          </div>
+
+          <div class="camera-component component-screws" data-depth=".64" style="--delay:.52s;--assembled-x:190px;--assembled-y:92px;--exploded-x:225px;--exploded-y:183px" aria-hidden="true">
+            <svg class="component-art screw-drift" viewBox="0 0 100 120">
+              <g fill="#b7a298" stroke="#584d4b"><circle cx="25" cy="28" r="8"/><circle cx="70" cy="45" r="6"/><circle cx="36" cy="86" r="5"/><circle cx="78" cy="96" r="8"/></g>
+              <g stroke="#302c2d"><path d="M20 28h10M25 23v10M66 45h8M70 41v8M32 86h8M36 82v8M73 96h10M78 91v10"/></g>
+            </svg>
+            <span class="camera-label label-screws"><b>FASTENERS</b><small>TORQUE 0.4 N·M</small></span>
+          </div>
+        </div>
+
+        <div class="stage-crosshair" aria-hidden="true"><i></i><b></b></div>
+        <div class="camera-controls">
+          <button class="explore-toggle" id="explore-toggle" type="button" aria-pressed="true">
+            <span class="explore-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span><b>Explore the camera</b><small id="explore-state">Exploded view</small></span>
+            <span class="explore-arrow" aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-art-bottom">
+        <blockquote>Your next shoot is one<br><em>step closer.</em></blockquote>
+        <p>Professional gear. Bigger possibilities.</p>
+      </div>
+    </section>
+
+    <section class="auth-card" aria-labelledby="h">
+      <div class="auth-in">
+        <div class="mobile-logo"><a class="logo" href="/"><i></i>Lenslet</a><span>FIELD NOTES / 01</span></div>
+        <div class="auth-kicker"><span class="status-dot"></span> SECURE ACCESS <i></i> LENSLET SYSTEMS</div>
+        <h1 id="h">Welcome back</h1>
+        <p class="s" id="sub">Sign in to manage your rentals.</p>
+
+        <div class="seg" role="tablist" aria-label="Account access">
+          <button role="tab" aria-selected="true" id="t1" type="button">Sign in</button>
+          <button role="tab" aria-selected="false" id="t2" type="button">Create account</button>
+        </div>
+
+        <div class="providers">
+          <a class="provider-btn provider-google" id="g" href="/api/auth/google/login">
+            <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.7 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6C12.3 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.4 28.8A14.5 14.5 0 0 1 9.5 24c0-1.7.3-3.3.9-4.8l-7.8-6A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.8l7.8-6z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.7-4-13.6-9.8l-7.8 6C6.5 42.6 14.6 48 24 48z"/></svg>
+            <span>Continue with Google</span><b>↗</b>
+          </a>
+          <button class="provider-btn provider-apple" type="button" disabled><span class="apple-mark" aria-hidden="true">●</span><span>Continue with Apple</span><small>Coming soon</small></button>
+        </div>
+        <p class="err provider-note" id="gn" hidden></p>
+
+        <div class="or"><span>or use email</span></div>
+        <form class="stack" id="f" novalidate>
+          <label class="fld" id="nm" hidden>Full name<input name="name" autocomplete="name" placeholder="Your name"></label>
+          <label class="fld">Email<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+          <label class="fld pw">Password<input name="password" id="pw" type="password" autocomplete="current-password" placeholder="••••••••" required minlength="8"><button type="button" id="sh" aria-label="Show password">Show</button></label>
+          <div class="form-tools" id="form-tools"><label class="remember"><input type="checkbox" name="remember"><span></span> Remember me</label><a href="#" id="forgot">Forgot password?</a></div>
+          <p class="err" id="e" role="alert"></p>
+          <button class="btn p submit-btn" id="go" type="submit"><span>Sign in</span><b>↗</b></button>
+        </form>
+        <p class="note" style="margin-top:20px">By continuing you agree to the rental terms.<br>We never store card details.</p>
+        <div class="auth-footnote"><span>NEW TO LENSLET?</span> <button type="button" id="create-link">Create an account <b>↗</b></button></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { api } from '/js/api.js';
+
+    const $ = selector => document.querySelector(selector);
+    const scene = $('#camera-scene');
+    const stage = $('#camera-stage');
+    const cameraVideo = $('#camera-video');
+    const cameraVideoShell = $('#camera-video-shell');
+    const toggle = $('#explore-toggle');
+    const stateLabel = $('#explore-state');
+    const components = [...document.querySelectorAll('.camera-component, .technical-ring, .connector-lines')];
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    let mode = 'in';
+    let cameraState = reduceMotion.matches ? 'exploded' : 'assembled';
+    let parallaxFrame = 0;
+
+    cameraVideo.addEventListener('loadeddata', () => cameraVideoShell.classList.add('is-ready'), { once: true });
+    cameraVideo.addEventListener('error', () => {
+      cameraVideoShell.classList.add('has-error');
+      cameraVideoShell.querySelector('.camera-video-loading').textContent = 'CAMERA ANIMATION UNAVAILABLE';
+    }, { once: true });
+    cameraVideo.play().catch(() => {});
+
+    function setCamera(next, immediate = false) {
+      const assembling = next === 'assembled';
+      cameraState = next;
+      scene.dataset.motion = assembling ? 'assembling' : 'exploding';
+      if (immediate) scene.classList.add('no-transition');
+      scene.dataset.state = next;
+      toggle.setAttribute('aria-pressed', String(next === 'exploded'));
+      stateLabel.textContent = next === 'exploded' ? 'Exploded view' : 'Assembled view';
+      window.setTimeout(() => {
+        scene.dataset.motion = next;
+        scene.classList.remove('no-transition');
+      }, immediate ? 0 : 2150);
+    }
+
+    if (reduceMotion.matches) setCamera('exploded', true);
+    else window.setTimeout(() => setCamera('exploded'), 320);
+    toggle.addEventListener('click', () => setCamera(cameraState === 'exploded' ? 'assembled' : 'exploded'));
+
+    function updateParallax(event) {
+      if (reduceMotion.matches) return;
+      const rect = stage.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - .5) * 2;
+      const y = ((event.clientY - rect.top) / rect.height - .5) * 2;
+      cancelAnimationFrame(parallaxFrame);
+      parallaxFrame = requestAnimationFrame(() => {
+        components.forEach(component => {
+          const depth = Number(component.dataset.depth || .2);
+          component.style.setProperty('--mx', `${x * depth * 14}px`);
+          component.style.setProperty('--my', `${y * depth * 10}px`);
+        });
+      });
+    }
+    stage.addEventListener('pointermove', updateParallax, { passive: true });
+    stage.addEventListener('pointerleave', () => components.forEach(component => { component.style.setProperty('--mx', '0px'); component.style.setProperty('--my', '0px'); }), { passive: true });
+    reduceMotion.addEventListener?.('change', event => { if (event.matches) setCamera('exploded', true); });
+
+    const next = new URLSearchParams(location.search).get('next');
+    const errors = { google: 'Google sign-in did not complete. Try again or use email.', unverified: 'Your Google email is not verified.' };
+    const providerError = new URLSearchParams(location.search).get('error');
+    if (providerError) $('#e').textContent = errors[providerError] || 'Sign-in failed.';
+
+    api('/auth/providers').then(provider => {
+      if (!provider.google) {
+        const google = $('#g');
+        google.setAttribute('aria-disabled', 'true');
+        google.removeAttribute('href');
+        google.classList.add('is-disabled');
+        $('#gn').hidden = false;
+        $('#gn').textContent = 'Google sign-in is not configured on this server yet. Use email for now.';
+      }
+    }).catch(() => {});
+
+    function setMode(nextMode) {
+      mode = nextMode;
+      const signup = mode === 'up';
+      $('#t1').setAttribute('aria-selected', String(!signup));
+      $('#t2').setAttribute('aria-selected', String(signup));
+      $('#nm').hidden = !signup;
+      $('#form-tools').hidden = signup;
+      $('#h').textContent = signup ? 'Create your account' : 'Welcome back';
+      $('#sub').textContent = signup ? 'Book gear in minutes. Verify your ID once.' : 'Sign in to manage your rentals.';
+      $('#go span').textContent = signup ? 'Create account' : 'Sign in';
+      $('#pw').autocomplete = signup ? 'new-password' : 'current-password';
+      $('#e').textContent = '';
+    }
+    $('#t1').onclick = () => setMode('in');
+    $('#t2').onclick = () => setMode('up');
+    $('#create-link').onclick = () => { setMode('up'); $('#nm input').focus(); };
+    $('#forgot').onclick = event => { event.preventDefault(); $('#e').textContent = 'Password reset is not enabled yet. Please contact Lenslet support.'; };
+    $('#sh').onclick = () => { const password = $('#pw'); const visible = password.type === 'password'; password.type = visible ? 'text' : 'password'; $('#sh').textContent = visible ? 'Hide' : 'Show'; };
+
+    $('#f').onsubmit = async event => {
+      event.preventDefault();
+      const values = Object.fromEntries(new FormData(event.target));
+      const error = $('#e');
+      error.textContent = '';
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(values.email || '')) return error.textContent = 'Enter a valid email address.';
+      if (mode === 'up' && (values.name || '').trim().length < 2) return error.textContent = 'Enter your full name.';
+      if ((values.password || '').length < (mode === 'up' ? 8 : 1)) return error.textContent = mode === 'up' ? 'Use at least 8 characters for your password.' : 'Enter your password.';
+      $('#go').disabled = true;
+      $('#go span').textContent = 'Please wait…';
+      try {
+        const data = await api(mode === 'in' ? '/auth/login' : '/auth/register', { method: 'POST', body: mode === 'in' ? { email: values.email, password: values.password } : values });
+        location.href = data.user.role === 'admin' ? '/admin.html' : (next && next.startsWith('/') ? next : '/account.html');
+      } catch (requestError) {
+        error.textContent = requestError.message;
+        $('#go').disabled = false;
+        $('#go span').textContent = mode === 'in' ? 'Sign in' : 'Create account';
+      }
+    };
+  </script>
+</body>
+</html>

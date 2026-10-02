@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lenslet – Rent professional cameras, lenses and production gear</title>
+<meta name="description" content="Rent Sony, Canon and DJI cameras, lenses, gimbals, lighting and audio gear with live availability, delivery and secure online payment.">
+<meta property="og:title" content="Lenslet – Rent the gear. Create the moment.">
+<meta property="og:description" content="Professional cameras, lenses and production gear, available when your next shoot demands it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="sk" href="#main">Skip to content</a>
+<header id="hd"><div class="wrap nav">
+  <a class="logo" href="#top" aria-label="Lenslet home"><i></i>Lenslet</a>
+  <nav class="links" aria-label="Primary"><a href="#gear">Gear</a><a href="#cats">Categories</a><a href="#how">How it works</a><a href="#kit">Build a kit</a><a href="#faq">FAQ</a></nav>
+  <div class="navr"><a class="btn" id="auth-link" href="/login.html">Sign in</a><a class="btn p" href="/gear.html">Reserve a kit</a>
+  <button class="burger" id="bg" aria-expanded="false" aria-controls="dr" aria-label="Open menu"><span></span><span></span><span></span></button></div>
+</div></header>
+<div class="drawer" id="dr" aria-hidden="true"><a href="#gear">Gear</a><a href="#cats">Categories</a><a href="#how">How it works</a><a href="#kit">Build a kit</a><a href="#faq">FAQ</a><a href="/login.html" style="color:var(--acc)">Sign in</a></div>
+
+<main id="main">
+<section class="hero" id="top"><div class="wrap hg">
+  <div>
+    <h1><span><b>Rent the Gear.</b></span><span><b>Create the Moment.</b></span></h1>
+    <p class="lead">Professional cameras, lenses and production gear — available when your next shoot demands it.</p>
+    <div class="cta"><a class="btn p" href="/gear.html">Explore Gear</a><a class="btn" href="#top" id="ca">Check Availability</a></div>
+    <form class="chk" id="chk" novalidate aria-label="Check availability">
+      <label>Pickup<input type="date" id="d1" required></label>
+      <label>Return<input type="date" id="d2" required></label>
+      <button class="btn p" type="submit">Check</button>
+      <div class="msg" id="msg" role="status" aria-live="polite">Pick your dates to see what is free.</div>
+    </form>
+  </div>
+  <div class="cam" id="cam" aria-hidden="true">
+    <svg viewBox="0 0 520 520">
+      <defs>
+        <radialGradient id="gl" cx="40%" cy="35%"><stop offset="0" stop-color="#6a8aa8"/><stop offset=".35" stop-color="#1b2733"/><stop offset="1" stop-color="#07090c"/></radialGradient>
+        <linearGradient id="bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e2e34"/><stop offset="1" stop-color="#17171a"/></linearGradient>
+      </defs>
+      <g class="ly" data-d="6">
+        <rect x="40" y="130" width="440" height="290" rx="46" fill="url(#bd)" stroke="rgba(255,255,255,.1)"/>
+        <path d="M170 130 L195 88 H325 L350 130Z" fill="#222227" stroke="rgba(255,255,255,.1)"/>
+        <rect x="70" y="160" width="70" height="26" rx="13" fill="#0e0e10"/>
+        <circle cx="440" cy="168" r="14" fill="#ffa77a"/><circle class="rec" cx="104" cy="173" r="5" fill="#ff5a4d"/>
+        <rect x="372" y="150" width="66" height="14" rx="7" fill="#0e0e10"/>
+        <path d="M40 300 q-14 0 -14 14 v50 q0 14 14 14" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="8"/>
+      </g>
+      <g class="ly" data-d="16">
+        <circle cx="260" cy="270" r="152" fill="#101013" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+        <g class="ring"><circle cx="260" cy="270" r="136" fill="none" stroke="#ffa77a" stroke-opacity=".5" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/></g>
+        <circle cx="260" cy="270" r="112" fill="url(#gl)" stroke="#2c2c33" stroke-width="10"/>
+        <g id="bl" class="blade" opacity=".9">
+          <path d="M260 190 L292 238 L230 238Z M340 270 L292 302 L292 238Z M260 350 L228 302 L290 302Z M180 270 L228 238 L228 302Z" fill="#0c1016" stroke="#2c3a4a" stroke-width="1.5"/>
+        </g>
+        <circle cx="260" cy="270" r="30" fill="#04060a"/>
+        <ellipse cx="222" cy="226" rx="26" ry="12" transform="rotate(-35 222 226)" fill="#fff" opacity=".22"/>
+        <circle cx="300" cy="310" r="6" fill="#ffa77a" opacity=".7"/>
+      </g>
+    </svg>
+    <div class="tag a"><small>Sony FX3 · 4K 120p</small>Available this weekend</div>
+    <div class="tag b"><small>Security deposit</small>Fully refundable</div>
+  </div>
+</div></section>
+
+<section id="gear"><div class="wrap">
+  <div class="head rvl"><div><h2>Featured equipment</h2><p class="lead">Every item is inspected, sensor-cleaned and tested before it leaves us.</p></div><a class="btn" href="/gear.html">View full catalogue</a></div>
+  <div class="grid" id="gg"></div>
+</div></section>
+
+<section id="cats" style="padding-top:0"><div class="wrap">
+  <div class="head rvl"><h2>Shop by category</h2></div>
+  <div class="cats" id="cc"></div>
+</div></section>
+
+<section id="how" class="kitw"><div class="wrap">
+  <div class="rvl"><h2>Booked in minutes, not days</h2><p class="lead">The order below is the order you will follow. Your summary stays in view at every step.</p></div>
+  <div class="steps rvl" style="margin-top:44px">
+    <div class="step"><span>1</span><h3>Pick dates</h3><p>Choose pickup and return. Booked gear is blocked automatically, so double bookings cannot happen.</p></div>
+    <div class="step"><span>2</span><h3>Choose gear and delivery</h3><p>Add items or a full kit. Self pickup, home delivery or straight to your shoot location.</p></div>
+    <div class="step"><span>3</span><h3>Verify and pay</h3><p>Upload ID once. Pay securely with Razorpay: UPI, cards or netbanking.</p></div>
+    <div class="step"><span>4</span><h3>Shoot and return</h3><p>Collect, create, return. Your deposit is released after inspection.</p></div>
+  </div>
+</div></section>
+
+<section id="kit"><div class="wrap">
+  <div class="rvl"><h2>Build your kit</h2><p class="lead">Select one item per group. The price updates as you go, including discount, GST and deposit.</p></div>
+  <div class="kit">
+    <div class="opts" id="op"></div>
+    <aside class="sum" aria-label="Kit summary">
+      <h3>Your kit</h3>
+      <div class="days"><span id="dl">Rental days</span><div><button id="dm" aria-label="One day less">−</button><b id="dn" aria-live="polite">2</b><button id="dp" aria-label="One day more">+</button></div></div>
+      <div class="kv" id="kv" aria-live="polite"></div>
+      <div id="bk"></div>
+      <button class="btn p" id="rs">Reserve This Kit</button>
+      <p class="note" id="nt">Choose at least a camera to continue.</p>
+    </aside>
+  </div>
+</div></section>
+
+<section class="kitw"><div class="wrap">
+  <div class="rvl"><h2>Why rent with us</h2></div>
+  <div class="why rvl">
+    <div><h3>Live availability</h3><p>Each item has its own booking calendar. Overlapping dates are blocked, and we suggest a similar item when yours is taken.</p></div>
+    <div><h3>Inspected every return</h3><p>Condition is recorded before and after each rental, so deposits are refunded fairly and quickly.</p></div>
+    <div><h3>Clear pricing</h3><p>Rental, add-ons, delivery, GST and deposit are shown before you pay. No surprises at pickup.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="rvl"><h2>Upcoming availability</h2><p class="lead">The next two weeks at a glance. Orange is booked, hatched is in maintenance.</p></div>
+  <div class="tl rvl" id="tl"><div class="tlin" id="ti"></div></div>
+</div></section>
+
+<section class="kitw"><div class="wrap">
+  <div class="rvl"><h2>Trusted on real sets</h2></div>
+  <div class="rv rvl">
+    <figure><div class="stars" aria-label="5 out of 5">★★★★★</div><blockquote>The FX3 arrived with two charged batteries and a clean sensor. We shot a wedding highlight film on it and nothing went wrong.</blockquote><figcaption><b>Ananya Krishnan</b>Wedding filmmaker, Chennai</figcaption></figure>
+    <figure><div class="stars" aria-label="5 out of 5">★★★★★</div><blockquote>Booking a kit with the 24-70 and a Godox light took four minutes. Delivery to our Mahabalipuram location was on time.</blockquote><figcaption><b>Rohit Menon</b>Ad agency producer</figcaption></figure>
+    <figure><div class="stars" aria-label="4.5 out of 5">★★★★½</div><blockquote>Deposit was back within two days of returning the gear. The inspection report was detailed and fair.</blockquote><figcaption><b>Sana Fathima</b>Independent photographer</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <h2 class="rvl">Questions, answered</h2>
+  <div class="faq rvl">
+    <details><summary>What documents do I need?</summary><p>A government photo ID and a selfie for first-time renters. Verification is saved to your profile, so you only do it once.</p></details>
+    <details><summary>How does the security deposit work?</summary><p>The deposit is held at payment and refunded after the return inspection, minus any agreed deductions for damage or late return.</p></details>
+    <details><summary>Can I extend a rental?</summary><p>Yes, from My Bookings. Extensions are approved only if nobody has booked the gear for the extra days.</p></details>
+    <details><summary>What if the gear I want is booked?</summary><p>We show similar available items for your dates, so you can switch in one tap.</p></details>
+    <details><summary>Can I cancel?</summary><p>Free cancellation up to 48 hours before pickup. After that, a partial refund applies as per our policy.</p></details>
+  </div>
+</div></section>
+
+<section class="fin"><div class="wrap rvl"><h2>Your next shoot starts here.</h2><div class="cta"><a class="btn p" href="/gear.html">Explore Gear</a><a class="btn" href="#kit">Build a Kit</a></div></div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="fg"><div><a class="logo" href="#top"><i></i>Lenslet</a><p style="max-width:30ch">Professional camera and production gear rental, with delivery across the city.</p></div>
+  <div><h4>Rent</h4><a href="#gear">Cameras</a><a href="#gear">Lenses</a><a href="#kit">Kits</a></div>
+  <div><h4>Account</h4><a href="/account.html">My bookings</a><a href="/account.html#id">ID verification</a><a href="/admin.html">Owner login</a></div>
+  <div><h4>Help</h4><a href="#faq">FAQ</a><a href="#">Rental terms</a><a href="#">Contact</a></div></div>
+  <div class="cp"><span>© 2026 Lenslet Rentals</span><span>Payments secured by Razorpay</span></div>
+</div></footer>
+
+<script src="/js/home.js"></script><script type="module" src="/js/shell.js"></script>
+</body>
+</html>

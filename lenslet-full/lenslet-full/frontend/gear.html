@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/site.css"><link rel="stylesheet" href="/css/app.css"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><title>Rent cameras, lenses and gear – Lenslet</title><meta name="description" content="Browse Sony, Canon and DJI cameras, lenses, gimbals, lighting and audio gear with live availability."></head>
+<body class="in-app"><header id="hd"></header>
+<main class="wrap pg"><h1>Gear for rent</h1><p class="lead">Choose your dates first and we show only what is free. Add several items to build a kit.</p>
+<div class="bar">
+<label class="fld" style="flex:1;min-width:180px">Search<input id="q" type="search" placeholder="Sony, lens, gimbal"></label>
+<label class="fld">Pickup<input id="s" type="datetime-local"></label><label class="fld">Return<input id="e" type="datetime-local"></label>
+<label class="fld">Sort<select id="so"><option value="popular">Popular</option><option value="price_asc">Price: low to high</option><option value="price_desc">Price: high to low</option><option value="newest">Newest</option></select></label>
+<label class="chip" style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="av"> Available only</label></div>
+<p class="err" id="derr" role="alert"></p>
+<div class="pills" id="cats" role="group" aria-label="Categories"></div>
+<div class="grid" id="g" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))" aria-live="polite"></div></main>
+<div class="kitbar" id="kb"><div class="wrap"><div><b id="kn"></b><div style="color:var(--mut);font-size:14px" id="kp"></div></div><button class="btn p" id="bk">Book This Gear</button></div></div>
+<dialog id="dlg" aria-labelledby="dt"><button class="x" id="cl" aria-label="Close">✕</button><div class="dg"><div class="dmain"><h2 id="dt"></h2><div class="prog" id="pr"></div><div id="st"></div><p class="err" id="er" role="alert"></p><div class="dnav"><button class="btn" id="bb">Back</button><button class="btn p" id="nx">Continue</button></div></div><aside class="dsum" id="sm" aria-label="Booking summary"></aside></div></dialog>
+<script type="module" src="/js/shell.js"></script>
+<script type="module">
+import {api,inr,me,esc,fdt,payBooking,toast} from '/js/api.js';
+const $=s=>document.querySelector(s);
+const T=d=>{const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`};
+const at=(days,h)=>{const d=new Date();d.setDate(d.getDate()+days);d.setHours(h,0,0,0);return T(d)};
+$('#s').value=at(1,10);$('#e').value=at(3,18);$('#s').min=T(new Date());
+let list=[],cat='',sel=new Map(),user=null,step=0,Q=null,F='pickup',A={line1:'',city:'',pincode:'',notes:''},done=null;
+const win=()=>{const s=$('#s').value,e=$('#e').value;return s&&e?{start:new Date(s).toISOString(),end:new Date(e).toISOString()}:{}};
+api('/categories').then(c=>{$('#cats').innerHTML=[{slug:'',name:'All gear'},...c].map(x=>`<button class="pill" aria-pressed="${x.slug===cat}" data-c="${x.slug}">${esc(x.name)}</button>`).join('')});
+$('#cats').onclick=e=>{const b=e.target.closest('.pill');if(!b)return;cat=b.dataset.c;document.querySelectorAll('.pill').forEach(p=>p.setAttribute('aria-pressed',p===b));load()};
+let tm;['q','s','e','so','av'].forEach(i=>$('#'+i).addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(load,250)}));
+async function load(){
+ const w=win(),p=new URLSearchParams();$('#derr').textContent='';
+ if(w.start&&new Date(w.start)<new Date())$('#derr').textContent='That pickup time has passed. Choose a later date.';
+ else if(w.start&&w.end<=w.start)$('#derr').textContent='Return must be after pickup.';
+ else{p.set('start',w.start);p.set('end',w.end)}
+ if(cat)p.set('category',cat);if($('#q').value.trim())p.set('search',$('#q').value.trim());p.set('sort',$('#so').value);if($('#av').checked)p.set('available_only','true');
+ $('#g').innerHTML='<div class="sk-l"></div>'.repeat(4);
+ try{list=await api('/gear?'+p)}catch(x){$('#g').innerHTML=`<div class="empty" style="grid-column:1/-1"><h3>We could not load the catalogue</h3><p>${esc(x.message)}</p><button class="btn p" onclick="location.reload()">Try again</button></div>`;return}
+ for(const id of [...sel.keys()])if(!list.find(g=>g.id===id)){}
+ render()}
+function render(){
+ if(!list.length){$('#g').innerHTML='<div class="empty" style="grid-column:1/-1"><h3>No gear matches</h3><p>Try another category, clear the search, or switch off "Available only".</p></div>';return}
+ $('#g').innerHTML=list.map(g=>{const ok=g.state==='available',on=sel.has(g.id);return `<article class="gear ${on?'sel':''} ${ok?'':'off'}"><div class="im"><span class="st ${g.state[0].toUpperCase()+g.state.slice(1)}">${g.state[0].toUpperCase()+g.state.slice(1)}</span><svg viewBox="0 0 100 80" fill="none" stroke="#ffa77a" stroke-width="2.4"><rect x="8" y="22" width="84" height="48" rx="9"/><path d="M34 22l5-10h22l5 10"/><circle cx="50" cy="46" r="15"/><circle cx="50" cy="46" r="6" fill="#ffa77a" stroke="none"/></svg></div><div class="bd"><span class="br">${esc(g.brand)} · ${esc(g.category_name)}</span><h3>${esc(g.name)}</h3><span class="sp">${esc(g.short_spec)}</span><span class="rt"><b>★</b> ${g.rating} (${g.review_count})</span><div class="ft"><span class="pr">${inr(g.price_day)}<small> /day</small></span><button class="btn ${on?'p':''} sm" data-id="${g.id}" ${ok||on?'':'disabled'} aria-pressed="${on}">${on?'Added':ok?'Add to Kit':'Not free'}</button></div></div></article>`}).join('');
+ bar()}
+$('#g').onclick=e=>{const b=e.target.closest('button[data-id]');if(!b)return;const id=+b.dataset.id,g=list.find(x=>x.id===id);sel.has(id)?sel.delete(id):sel.set(id,g);render()};
+function bar(){const n=sel.size;$('#kb').classList.toggle('on',n>0);$('#kn').textContent=n+(n===1?' item':' items')+' in your kit';$('#kp').textContent=inr([...sel.values()].reduce((s,g)=>s+g.price_day,0))+' per day before tax'}
+// ---------- booking dialog ----------
+const STEPS=['Dates','Delivery','Review and pay'];
+$('#bk').onclick=()=>{step=0;Q=null;done=null;$('#er').textContent='';$('#dlg').showModal();draw()};
+$('#cl').onclick=()=>$('#dlg').close();
+$('#bb').onclick=()=>{if(step>0){step--;$('#er').textContent='';draw()}};
+async function quote(){const body={equipment_ids:[...sel.keys()],...win(),fulfilment:F,address:F==='pickup'?null:A};Q=await api('/quote',{method:'POST',body});return body}
+async function alts(){const out=[];for(const id of Q.unavailable){const g=sel.get(id),w=win();const r=await api(`/gear?start=${encodeURIComponent(w.start)}&end=${encodeURIComponent(w.end)}&category=${g.category}&available_only=true`);out.push({g,alts:r.filter(x=>!sel.has(x.id)).slice(0,3)})}return out}
+function swapUI(items){return items.map(({g,alts})=>`<div class="alt" style="display:block"><b>${esc(g.name)}</b> is booked for these dates.${alts.length?alts.map(a=>`<div class="alt"><span>${esc(a.name)} · ${inr(a.price_day)}/day</span><button class="btn sm" data-swap="${g.id}:${a.id}">Swap</button></div>`).join(''):'<br><span style="color:var(--mut)">No similar item is free. Try different dates.</span>'}</div>`).join('')}
+$('#st').addEventListener('click',e=>{const b=e.target.closest('[data-swap]');if(!b)return;const[o,n]=b.dataset.swap.split(':').map(Number);sel.delete(o);sel.set(n,list.find(g=>g.id===n)||{id:n,price_day:0});Q=null;step=0;$('#er').textContent='';draw();bar()});
+$('#nx').onclick=async()=>{
+ const er=$('#er');er.textContent='';$('#nx').disabled=true;
+ try{
+  if(done){$('#dlg').close();location.href='/account.html';return}
+  if(step===0){const w=win();if(!w.start)throw new Error('Choose both pickup and return times.');await quote();
+   if(Q.unavailable.length){const it=await alts();$('#st').insertAdjacentHTML('beforeend','<div id="alts">'+swapUI(it)+'</div>');throw new Error('Some gear is not free for these dates.')}step=1}
+  else if(step===1){if(F!=='pickup'){A={line1:$('#a1').value,city:$('#a2').value,pincode:$('#a3').value,notes:$('#a4').value};
+    document.querySelectorAll('#st input[id^=a]').forEach(i=>i.removeAttribute('aria-invalid'));
+    if(A.line1.trim().length<3||A.city.trim().length<2||!/^\d{6}$/.test(A.pincode)){if(!/^\d{6}$/.test(A.pincode))$('#a3').setAttribute('aria-invalid','true');throw new Error('Enter the street address, city and a 6-digit pincode.')}}
+   await quote();step=2}
+  else if(step===2){
+   if(!user)user=await me();if(!user){location.href='/login.html?next=/gear.html';return}
+   let b;try{b=await api('/bookings',{method:'POST',body:await quote()})}
+   catch(x){if(x.status===403&&x.data?.code==='KYC_INCOMPLETE'){er.innerHTML='Add your ID details first. <a href="/account.html#id" style="color:var(--acc);text-decoration:underline">Verify ID</a>';return}
+    if(x.status===409&&x.data?.code==='OVERLAP'){await quote();Q.unavailable=Object.keys(x.data.alternatives).map(Number);const it=await alts();$('#st').insertAdjacentHTML('beforeend','<div id="alts">'+swapUI(it)+'</div>')}
+    throw x}
+   done={id:b.id,code:b.code,paid:false,note:''};draw();
+   await payBooking(b.id,user,()=>{done.paid=true;draw()},(m,bad)=>{done.note=m;draw();if(bad)toast(m,true)});
+  }
+  draw()
+ }catch(x){er.textContent=x.message}finally{$('#nx').disabled=false}};
+function draw(){
+ const w=win(),s=new Date(w.start||Date.now()),en=new Date(w.end||Date.now()),items=[...sel.values()];
+ $('#dt').textContent=done?(done.paid?'Booking confirmed':'Booking held'):STEPS[step];
+ $('#pr').innerHTML=STEPS.map((_,i)=>`<i class="${i<=step||done?'d':''}"></i>`).join('');
+ $('#bb').style.visibility=step>0&&!done?'visible':'hidden';
+ $('#nx').textContent=done?'View my bookings':step===2?(Q?`Pay ${inr(Q.total)}`:'Pay'):'Continue';
+ let h='';
+ if(done){h=`<div class="done"><div class="tick">✓</div><div class="code">${done.code}</div><p>${done.paid?'Payment verified. A confirmation has been sent.':'Your gear is held for 15 minutes.'}</p>${done.note?`<p class="err">${esc(done.note)}</p>`:''}</div>`}
+ else if(step===0)h=`<div class="two"><label class="fld">Pickup<input id="ds" type="datetime-local" value="${$('#s').value}" min="${T(new Date())}"></label><label class="fld">Return<input id="de" type="datetime-local" value="${$('#e').value}"></label></div><p style="color:var(--mut)">Rentals are charged per 24 hours. Three days or more earns a 5% discount.</p>`;
+ else if(step===1)h=`<div class="stack">${[['pickup','Self pickup','Free · collect from our studio'],['home','Home delivery','₹350 · to your address'],['shoot','Shoot location delivery','₹600 · we meet you on set']].map(([v,t,d])=>`<label class="opt"><input type="radio" name="f" value="${v}" ${F===v?'checked':''}><span><b>${t}</b><small>${d}</small></span></label>`).join('')}</div>${F==='pickup'?'':`<div class="stack"><label class="fld">Street address<input id="a1" value="${esc(A.line1)}" autocomplete="street-address"></label><div class="two"><label class="fld">City<input id="a2" value="${esc(A.city)}"></label><label class="fld">Pincode<input id="a3" inputmode="numeric" maxlength="6" value="${esc(A.pincode)}"></label></div><label class="fld">Landmark or notes (optional)<input id="a4" value="${esc(A.notes||'')}"></label></div>`}`;
+ else h=`<p>Check everything below. Nothing is charged until you pay.</p>${Q?`<div>${[['Rental ('+Q.days+' day'+(Q.days>1?'s':'')+')',Q.rental],['Discount ('+Q.discount_pct+'%)',-Q.discount],['Delivery',Q.delivery],['GST 18%',Q.tax],['Refundable security deposit',Q.deposit]].map(r=>`<div class="row"><span>${r[0]}</span><b>${r[1]<0?'− ':''}${inr(Math.abs(r[1]))}</b></div>`).join('')}<div class="row t"><span>Total payable</span><b>${inr(Q.total)}</b></div></div>`:''}<p class="note" style="text-align:left">The deposit is refunded after the return inspection. You must have ID verification on file.</p>`;
+ $('#st').innerHTML=h;
+ const sum=()=>{const w=win(),s=new Date(w.start||Date.now()),en=new Date(w.end||Date.now());$('#sm').innerHTML=`<h3>Your booking</h3>${items.map(g=>`<div class="it">${esc(g.name)}</div>`).join('')}<div class="meta"><b style="color:var(--ink)">When</b><br>${fdt(s)} to ${fdt(en)}<br><b style="color:var(--ink)">Where</b><br>${F==='pickup'?'Self pickup at our studio':esc(A.line1||'Delivery address to be added')}</div>${Q?`<div class="row t"><span>Total</span><b>${inr(Q.total)}</b></div>`:''}`;};sum();
+ if(step===0&&!done){['ds','de'].forEach(id=>$('#'+id).oninput=()=>{$('#s').value=$('#ds').value;$('#e').value=$('#de').value;Q=null;load();sum()})}
+ document.querySelectorAll('input[name=f]').forEach(r=>r.onchange=()=>{F=r.value;Q=null;draw()})}
+$('#dlg').addEventListener('close',()=>{if(done?.paid){sel.clear();load()}});
+load();
+</script></body></html>

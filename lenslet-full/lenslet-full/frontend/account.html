@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/site.css"><link rel="stylesheet" href="/css/app.css"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><title>My account – Lenslet</title></head>
+<body class="in-app"><header id="hd"></header>
+<main class="wrap pg"><h1 id="hi">My account</h1>
+<div class="tabs" role="tablist"><button role="tab" id="tb" aria-selected="true">My bookings</button><button role="tab" id="ti" aria-selected="false">ID verification</button><button role="tab" id="tp" aria-selected="false">Profile</button></div>
+<section id="p"><div class="sk-l"></div></section></main>
+<script type="module" src="/js/shell.js"></script>
+<script type="module">
+import {api,inr,me,esc,fdt,label,payBooking,toast} from '/js/api.js';
+const $=s=>document.querySelector(s);let user;
+const tabs={tb:bookings,ti:idForm,tp:profile};
+function go(id){for(const k in tabs)$('#'+k).setAttribute('aria-selected',k===id);history.replaceState(null,'',id==='ti'?'#id':location.pathname);tabs[id]()}
+for(const k in tabs)$('#'+k).onclick=()=>go(k);
+async function bookings(){
+ $('#p').innerHTML='<div class="sk-l"></div>';
+ let b;try{b=await api('/bookings')}catch(x){$('#p').innerHTML=`<div class="empty"><h3>We could not load your bookings</h3><p>${esc(x.message)}</p><button class="btn p" onclick="location.reload()">Try again</button></div>`;return}
+ if(!b.length){$('#p').innerHTML='<div class="empty"><h3>No upcoming rentals</h3><p>When you book gear, it shows up here with its status.</p><a class="btn p" href="/gear.html">Explore available gear</a></div>';return}
+ $('#p').innerHTML=b.map(x=>`<article class="bkc"><div class="top"><div><b style="font-size:18px">${x.code}</b> <span class="status ${x.status}">${label(x.status)}</span></div><b>${inr(x.total)}</b></div>
+ <div>${x.items.map(i=>esc(i.name)).join(' · ')}</div>
+ <div style="color:var(--mut);font-size:14px">${fdt(x.start_at)} to ${fdt(x.end_at)} · ${x.days} day${x.days>1?'s':''} · ${x.fulfilment==='pickup'?'Self pickup':esc(x.address?.line1||'Delivery')} · Deposit ${inr(x.deposit)}</div>
+ ${x.status==='CANCELLED'&&x.paid&&x.refunded===0?'<div class="err">Cancelled. Your refund is being processed by the owner.</div>':''}
+ <div class="acts">${x.status==='PAYMENT_PENDING'?`<button class="btn p sm" data-pay="${x.id}">Pay now</button>`:''}
+ ${['PAYMENT_PENDING','CONFIRMED','READY_FOR_PICKUP'].includes(x.status)?`<button class="btn sm" data-c="${x.id}">Cancel booking</button>`:''}
+ <a class="btn sm" target="_blank" rel="noopener" href="/api/bookings/${x.id}/invoice">Invoice</a></div></article>`).join('');
+}
+$('#p').onclick=async e=>{const p=e.target.closest('[data-pay]'),c=e.target.closest('[data-c]');
+ if(p)payBooking(+p.dataset.pay,user,()=>{toast('Payment verified. Booking confirmed.');bookings()},(m,bad)=>toast(m,bad));
+ if(c&&confirm('Cancel this booking? Paid bookings are refunded by the owner under the cancellation policy.')){try{await api(`/bookings/${c.dataset.c}/cancel`,{method:'POST'});toast('Booking cancelled.');bookings()}catch(x){toast(x.message,true)}}};
+async function idForm(){
+ const k=await api('/kyc').catch(()=>({}));
+ const st=k.status?`<p>Status: <span class="status ${k.status==='approved'?'CONFIRMED':k.status==='rejected'?'CANCELLED':''}">${label(k.status)}</span> · ${label(k.id_type)} ending ${esc(k.id_last4)}</p>`:'<p>Add your ID once. You need it before your first booking, and the owner approves it before handing over gear.</p>';
+ $('#p').innerHTML=`<div style="max-width:480px"><h2 style="font-size:28px;margin-bottom:12px">ID verification</h2>${st}<form class="stack" id="kf" novalidate>
+ <label class="fld">Name as on ID<input name="full_name" value="${esc(k.full_name||user.name)}" required></label>
+ <label class="fld">ID type<select name="id_type">${[['aadhaar','Aadhaar'],['passport','Passport'],['driving_licence','Driving licence'],['voter_id','Voter ID']].map(([v,t])=>`<option value="${v}" ${k.id_type===v?'selected':''}>${t}</option>`).join('')}</select></label>
+ <label class="fld">ID number<input name="id_number" autocomplete="off" required placeholder="We store only the last 4 characters"></label>
+ <p class="err" id="ke" role="alert"></p><button class="btn p" style="justify-content:center">${k.status?'Update and resubmit':'Submit for verification'}</button></form></div>`;
+ $('#kf').onsubmit=async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));
+  if(f.id_number.replace(/\W/g,'').length<4)return $('#ke').textContent='Enter the full ID number.';
+  try{await api('/kyc',{method:'PUT',body:f});toast('Submitted. The owner will review it shortly.');idForm()}catch(x){$('#ke').textContent=x.message}}}
+function profile(){$('#p').innerHTML=`<div style="max-width:480px" class="stack"><div class="bkc"><b>${esc(user.name)}</b><span style="color:var(--mut)">${esc(user.email)}</span></div><button class="btn" id="lo" style="justify-self:start">Sign out</button></div>`;
+ $('#lo').onclick=async()=>{await api('/auth/logout',{method:'POST'});location.href='/'}}
+user=await me();if(!user){location.href='/login.html?next=/account.html'}else{$('#hi').textContent='Hello, '+user.name.split(' ')[0];go(location.hash==='#id'?'ti':'tb')}
+</script></body></html>
